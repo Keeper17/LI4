@@ -1,0 +1,47 @@
+﻿@page "/scorers"
+@inject HttpClient Http
+
+
+@if (Main == null)
+{
+    <p>Erro ao chamar a API (ou limite de 10 requests atingido)</p>
+}
+else
+{
+    <div class="mb-2 p-3">
+        Escolha a Liga que pretende analisar:
+        <select class="form-control" @bind="League" @onclick="@GetDataAsync">
+            <option selected disabled value="-1"> Liga</option>
+            <option value=PPL> Primeira Liga Portuguesa</option>
+            <option value=PL> Premier League</option>
+            <option value=BL1> Bundesliga</option>
+            <option value=PD> La Liga</option>
+        </select>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Clube</th>
+                <th>Posição</th>
+                <th>Golos Marcados</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var scorer in Main.scorers)
+            {
+
+            <tr>
+                <td>@scorer.player.name</td>
+                <td>@scorer.team.name</td>
+                <td>@scorer.player.position</td>
+                <td>@scorer.numberOfGoals</td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
